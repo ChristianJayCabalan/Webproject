@@ -1,0 +1,115 @@
+/* Toggle Button */
+.ap-btn-toggle {
+    background-color: #ff7f28;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+.ap-btn-toggle:hover { background-color: #f36d15; }
+
+/* Modal Overlay */
+.ap-modal-backdrop {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Card */
+.ap-modal {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.ap-modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Inputs */
+.ap-label { font-weight: 600; margin-top: 10px; display: block; }
+.ap-input { width: 100%; padding: 12px 14px; border-radius: 8px; border:1px solid #ccc; margin-top:5px; }
+.ap-file { margin-top: 5px; }
+
+/* Image Preview */
+.ap-image-preview img { max-height: 150px; border-radius: 8px; margin-top: 10px; }
+
+/* Modal Buttons */
+.ap-modal-actions { display:flex; justify-content: flex-end; gap: 10px; margin-top: 15px; }
+.ap-btn-submit {
+    background: #28a745; color: #fff; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;
+}
+.ap-btn-submit:hover { background:#218838; }
+.ap-btn-cancel {
+    background:#dc3545; color:#fff; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;
+}
+.ap-btn-cancel:hover { background:#a71d2a; }
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(-20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+/* Success message */
+.ap-alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+.ap-pagination ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 8px;
+}
+
+.ap-pagination li {
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.ap-pagination li.active {
+    background-color: #ff7f28;
+    color: white;
+    font-weight: bold;
+}
+
+.ap-pagination li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.ap-pagination li:hover:not(.active) {
+    background-color: #e2e2e2;
+}
+
+.ap-pagination li.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.ap-alert-success {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}

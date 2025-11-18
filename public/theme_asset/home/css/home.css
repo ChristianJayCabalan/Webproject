@@ -1,0 +1,687 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+
+/* ========================== Root Variables ========================== */
+:root {
+  --body-bg: #eef0f6;
+  --bg-light: hsl(0, 0%, 100%);
+  --txt-primary: #080A29;
+  --shadow: 1px 4px 0px 0px rgb(0 0 0 / 34%);
+  --color-accent: #ff7f28;
+}
+
+/* ========================== Global Styles ========================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+.dropdown-menu {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 1000;
+}
+
+
+
+body {
+  overflow: auto;
+  color: var(--txt-primary);
+  text-transform: capitalize;
+  background: var(--body-bg);
+  font: 400 1.6rem 'Poppins', sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+/* ========================== Utility Classes ========================== */
+.txt-blue { color: var(--color-accent); }
+.p-lg { font-size: calc(1.5rem + 0.2vw); }
+
+/* ========================== Header ========================== */
+#header {
+  top: 3;
+  z-index: 1024;
+  position: sticky;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  background: var(--bg-light);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+}
+
+header#header .container {
+  padding: 20px 0;
+}
+
+.logo { width: 150px; }
+
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  font-weight: 600;
+}
+
+.nav-toggler {
+  display: none;
+  font-size: 2.6rem;
+  cursor: pointer;
+}
+/* ========== MOBILE HEADER HEIGHT ADJUSTMENT ========== */
+@media (max-width: 768px) {
+  #header {
+    min-height: 0px !important; /* dati 120px */
+    padding: 0px 0 !important;
+  }
+
+  header#header .container {
+    padding: 0px 0 !important;
+  }
+
+  .cloudscape-logo h1 {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* ========== MOBILE HEADER ADJUSTMENT ========== */
+.mobile-header {
+  width: 100%;
+  min-height: 75px !important;
+  background: #ffffff;
+  position: relative;
+  padding: 10px 15px;
+}
+
+/* Logo stacked */
+.mobile-logo h1, .mobile-logo h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Fire animation per letter */
+/* Logo stacked */
+.mobile-logo h1, .mobile-logo h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.1; /* adjust para lumapit sa isa't isa */
+  letter-spacing: 1px; /* bawasan spacing para hindi sobrang layo */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Font sizes for stacked logo */
+.mobile-logo h1 {
+  font-size: 1.6rem; /* Cloudscape */
+  color: #ff7733;
+  margin-bottom: 2px; /* dagdag maliit na gap sa ilalim ng Cloudscape */
+}
+.mobile-logo h2 {
+  font-size: 1.2rem; /* Vapeshop */
+  color: #ffb347;
+  margin-top: 0; /* walang dagdag na margin */
+}
+
+
+/* Fire keyframes (reuse from desktop) */
+@keyframes fire {
+  0% { color: #ffb347; text-shadow: 0 0 10px rgba(255,179,71,0.7); transform: translateY(0) scale(1); }
+  50% { color: #ff7733; text-shadow: 0 0 15px rgba(255,119,51,0.7); transform: translateY(-3px) scale(1.05); }
+  100% { color: #ff3300; text-shadow: 0 0 20px rgba(255,51,0,0.8); transform: translateY(0) scale(1); }
+}
+
+/* Up-Coming Product button smaller */
+.mobile-upcoming-btn {
+  background: linear-gradient(45deg, #ff6b00, #ff0000);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 5px 12px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  box-shadow: 0 0 8px rgba(255,100,0,0.6);
+  transition: all 0.3s ease;
+}
+
+.mobile-upcoming-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,140,0,0.8);
+}
+
+/* Pulse animation */
+.pulse {
+  animation: pulseAnimation 2s infinite;
+  transition: transform 0.3s ease-in-out;
+}
+
+@keyframes pulseAnimation {
+  0% { box-shadow: 0 0 0 0 rgba(220,53,69,0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(220,53,69,0); }
+  100% { box-shadow: 0 0 0 0 rgba(220,53,69,0); }
+}
+
+
+
+@media screen and (max-width: 765.9px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 17rem;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-light);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .nav-links.show {
+    display: flex;
+    align-items: center;
+  }
+  .nav-toggler { display: flex; }
+  .nav-toggler i { color: var(--txt-primary); }
+  
+}
+
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(320px, 90%, 480px);
+    height: clamp(60px, 7vh, 70px);
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-radius: 25px;
+    z-index: 1050;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.mobile-bottom-nav a,
+.mobile-bottom-nav .dropdown-toggle {
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.mobile-bottom-nav a i,
+.mobile-bottom-nav .dropdown-toggle i {
+    font-size: 20px;
+}
+
+.mobile-bottom-nav a.active,
+.mobile-bottom-nav a:hover,
+.mobile-bottom-nav .dropdown-toggle.active,
+.mobile-bottom-nav .dropdown-toggle:hover {
+    color: #ff7f28;
+}
+
+body {
+    padding-bottom: clamp(70px, 8vh, 90px); /* prevent overlay */
+}
+
+
+/* Mobile Menu */
+.mobile-menu {
+    position: absolute;
+    top: 60px; /* adjust depende sa height ng top bar */
+    left: 0;
+    width: 250px;
+    background: var(--bg-light);
+    box-shadow: var(--shadow);
+    transform: translateX(-260px);
+    transition: transform 0.3s ease;
+    z-index: 1050;
+}
+
+/* Toggle menu using checkbox */
+#mobile-menu-toggle:checked ~ .mobile-menu {
+    transform: translateX(0);
+}
+
+/* Burger Icon */
+.nav-toggler i {
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--txt-primary);
+}
+
+/* Make mobile top bar padding aligned */
+.d-flex.d-md-none {
+    padding: 10px 15px;
+}
+
+/* Cart always visible */
+.theme-wrap {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: grid;
+    place-items: center;
+    background: hsl(38.34deg 84% 45% / 12%);
+    border-radius: 50%;
+}
+
+.theme-icon-wrap i {
+    color: #ff7f28;
+    font-size: 1.5rem;
+}
+
+
+/* ========================== Theme Button ========================== */
+.theme-wrap {
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 50%;
+  place-items: center;
+  background: hsl(38.34deg 84% 45% / 12%);
+}
+
+.theme-icon-wrap {
+  display: grid;
+  position: relative;
+  place-items: center;
+  transition: transform 300ms ease;
+}
+
+.theme-icon-wrap i {
+  color: #ff7f28;
+  position: absolute;
+}
+
+/* ========================== Dropdown ========================== */
+.dropdown-menu {
+  display: none;
+  font-size: 15px;
+  background: var(--bg-light);
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* ========================== Navigation Hover Effects ========================== */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::before {
+  content: '';
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  background-color: var(--color-accent);
+  transform: scale(0);
+  transition: all 0.4s ease;
+}
+
+.nav-links a:hover::before {
+  transform: scale(1);
+}
+
+/* ========================== Product Card ========================== */
+.product_card {
+  background: #ffffffc8;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.product_img {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pc_content {
+  padding: 20px;
+}
+
+.pcc_in a { color: #007bff; text-decoration: none; }
+.pcc_in a:hover { text-decoration: underline; }
+
+.pcc_price {
+  font-size: 1.5rem;
+  color: #e67e22;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.pcc_description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.pcc_btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.pcc_btns .btn {
+  flex: 1; /* stretch equally */
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 30px; /* same as desktop */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.pcc_btns .addtocart {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+.pcc_btns .addtocart:hover {
+  background-color: #d35400;
+  transform: translateY(-2px);
+}
+
+.pcc_btns .viewbtn {
+  background-color: #4CAF50;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.pcc_btns .viewbtn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+/* ========================== Mobile adjustments ========================== */
+
+/* Desktop nav */
+nav.d-flex.align-items-center.gap-4 {
+    display: flex; /* default desktop */
+}
+
+/* Mobile menu wrapper */
+
+
+/* Media query for mobile (<768px) */
+@media (max-width: 767.98px) {
+    /* Hide desktop nav */
+    nav.d-flex.align-items-center.gap-4 {
+        display: none !important;
+    }
+} /* ← ito ang kulang kanina */
+
+@media (max-width: 1024px) {
+    .cloudscape-logo {
+        display: none !important;
+    }
+}
+
+    /* Mobile menu slide-in content */
+    .mobile-menu {
+        display: block;
+    }
+
+@media (max-width: 768px) {
+    /* Hide desktop elements */
+    .cloudscape-logo,
+    nav.d-flex.align-items-center.gap-4,
+    form.d-flex.align-items-center:not(.d-md-none) {
+        display: none !important;
+    }
+
+    /* Hamburger Menu */
+    .mobile-menu {
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateX(-260px);
+        transition: transform 0.3s ease;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        width: 250px;
+        z-index: 1050;
+    }
+
+    #mobile-menu-toggle:checked ~ .mobile-menu {
+        transform: translateX(0);
+    }
+
+    .nav-toggler i {
+        color: #000;
+        font-size: 1.8rem;
+    }
+}
+
+
+
+/* ========================== Review Section ========================== */
+.review_section {
+  background: #121212;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  margin-top: 20px;
+}
+
+.review_section h3 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.review { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0; }
+.review:last-child { border-bottom: none; }
+.review strong { font-family: 'Helvetica Neue', sans-serif; font-size: 1.1rem; color: #e60023; }
+.review p { font-family: 'Helvetica Neue', sans-serif; font-size: 0.9rem; color: #ccc; margin: 4px 0; }
+
+.review-form {
+  background: linear-gradient(135deg, #e60023, #ff4f81);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-top: 20px;
+  color: #fff;
+}
+
+.review-form h4 { font-size: 1.3rem; margin-bottom: 20px; text-align: center; }
+.review-form label { font-size: 0.9rem; font-weight: bold; display: block; margin-bottom: 5px; }
+.review-form .form-control {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.review-form .btn {
+  background: #fff;
+  color: #e60023;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  transition: background 0.3s;
+}
+
+.review-form .btn:hover {
+  background: #f1f1f1;
+  color: #e60023;
+}
+
+/* Star Rating */
+.star-rating i { font-size: 1.8rem; color: #ccc; cursor: pointer; transition: color 0.3s; }
+.star-rating i:hover, .star-rating i.active { color: gold !important; }
+
+/* ========================== Footer ========================== */
+#footer {
+  background: #080A29;
+  color: #fff;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.footer-links a { color: #fff; font-size: 1.6rem; margin: 0 1.5rem; transition: 0.3s; }
+.footer-links a:hover { color: var(--color-accent); }
+
+.footer-socials { margin-top: 2rem; }
+.footer-socials a { font-size: 2rem; margin: 0 1rem; color: var(--color-accent); transition: 0.3s; }
+.footer-socials a:hover { color: #fff; }
+
+/* ========================== Logo Animations ========================== */
+.animated-logo { display: inline-block; font-size: 2rem; font-weight: bold; color: white; text-transform: uppercase; text-align: center; }
+.animated-logo span { display: inline-block; position: relative; animation: fireGlow 1s infinite alternate; }
+
+@keyframes fireGlow {
+  0% { text-shadow: 0 0 5px rgb(100, 181, 247), 0 0 10px rgb(238, 96, 96); }
+  100% { text-shadow: 0 0 15px rgb(249, 249, 204), 0 0 30px red; }
+}
+
+.cloudscape-logo h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.cloudscape-logo h1 .line1,
+.cloudscape-logo h1 .line2 { display: block; }
+
+.cloudscape-logo h1 span {
+  display: inline-block;
+  animation: fire 1.5s infinite alternate;
+}
+
+@keyframes fire {
+  0% { color: #ffb347; text-shadow: 0 0 10px rgba(255,179,71,0.7); transform: translateY(0) scale(1); }
+  50% { color: #ff7733; text-shadow: 0 0 15px rgba(255,119,51,0.7); transform: translateY(-3px) scale(1.1); }
+  100% { color: #ff3300; text-shadow: 0 0 20px rgba(255,51,0,0.8); transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 576px) { .cloudscape-logo h1 { font-size: 1.5rem; } }
+
+/* ========================== Pulse Animation ========================== */
+.pulse {
+  animation: pulseAnimation 2s infinite;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pulse:hover { transform: scale(1.05); }
+
+@keyframes pulseAnimation {
+  0% { box-shadow: 0 0 0 0 rgba(220,53,69,0.6); }
+  70% { box-shadow: 0 0 0 15px rgba(220,53,69,0); }
+  100% { box-shadow: 0 0 0 0 rgba(220,53,69,0); }
+}
+
+/* ========================== Product Grid ========================== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+/* Desktop large */
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile small */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* Previously 1fr, now 2 per row */
+  }
+}
+
+
+
+
+

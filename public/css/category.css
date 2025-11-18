@@ -1,0 +1,75 @@
+/* Toggle Button */
+.cc-btn-toggle {
+    background-color: #ff7f28;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.cc-btn-toggle:hover {
+    background-color: #f36d15;
+}
+
+/* Modal Overlay */
+.cc-modal-backdrop {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Modal Card */
+.cc-modal {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: cc-fadeIn 0.3s ease;
+}
+
+.cc-modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Inputs */
+.cc-label { font-weight: 600; margin-top: 10px; display: block; }
+.cc-input { width: 100%; padding: 12px 14px; border-radius: 8px; border:1px solid #ccc; margin-top:5px; }
+
+/* Modal Buttons */
+.cc-modal-actions { display:flex; justify-content: flex-end; gap: 10px; margin-top: 15px; }
+.cc-btn-submit {
+    background: #28a745; color: #fff; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;
+}
+.cc-btn-submit:hover { background:#218838; }
+.cc-btn-cancel {
+    background:#dc3545; color:#fff; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;
+}
+.cc-btn-cancel:hover { background:#a71d2a; }
+
+/* Fade-in animation */
+@keyframes cc-fadeIn {
+    from {opacity:0; transform: translateY(-20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+/* Success Toast */
+.cc-alert-success {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+}

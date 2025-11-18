@@ -1,0 +1,59 @@
+/* user-order.css */
+
+.header-animate {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1.8rem; /* smaller font */
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff; /* white text */
+    letter-spacing: 1.5px;
+    display: inline-block;
+    margin: 1.5rem auto 2rem auto; /* smaller top & bottom margin */
+    padding: 0.5rem 2rem; /* smaller padding */
+    border-radius: 0.5rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(139,69,19,0.9), rgba(160,82,45,0.8));
+    border: 2px solid #5a2d0c; /* thinner border */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
+    /* subtle floating animation */
+    animation: floatHeader 3s ease-in-out infinite alternate;
+}
+
+/* Decorative horizontal line below the header */
+.header-animate span.line {
+    display: block;
+    width: 40px; /* smaller line */
+    height: 2px;
+    background-color: #5a2d0c;
+    margin: 0.3rem auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Floating animation */
+@keyframes floatHeader {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-2px); } /* smaller float */
+}
+
+/* Decorative "nails" */
+.header-animate::before,
+.header-animate::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background: #555;
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 3px #000;
+}
+
+.header-animate::before {
+    left: 8px;
+}
+
+.header-animate::after {
+    right: 8px;
+}

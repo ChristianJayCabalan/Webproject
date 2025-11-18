@@ -1,0 +1,342 @@
+body.about-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0d0d0d;
+    color: #f4f4f4;
+}
+
+.hero {
+    position: relative;
+    background: url('/images/hero-banner.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.9));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+/* 🔥 MODERN-TITLE now gets the FIRE effect */
+.modern-title {
+    font-family: 'Bangers', cursive;
+    font-size: 10rem;
+    font-weight: 400;
+    letter-spacing: 10px;
+    color: #ff9900;
+    display: block;
+    margin-bottom: 5px;
+    animation: fireGlow 2s ease-in-out infinite alternate;
+    text-shadow:
+        0 0 10px #ff6600,
+        0 0 20px #ff3300,
+        0 0 30px #ff0000,
+        0 0 40px #ff3300,
+        0 0 60px #ff6600;
+}
+
+/* 🌈 WELCOME-TEXT now gets the GRADIENT fade-in-up effect */
+.welcome-text {
+    font-size: 10rem; /* Adjust as needed */
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #00f0ff, #a1ffce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1.5s ease-in-out;
+}
+@keyframes fireGlow {
+    0% {
+        text-shadow:
+            0 0 5px #ff6600,
+            0 0 10px #ff3300,
+            0 0 15px #ff0000,
+            0 0 20px #ff3300,
+            0 0 30px #ff6600;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        text-shadow:
+            0 0 15px #ff9900,
+            0 0 30px #ff3300,
+            0 0 45px #ff0000,
+            0 0 60px #ff3300,
+            0 0 90px #ff6600;
+        transform: scale(1.03) rotate(-0.5deg);
+    }
+    100% {
+        text-shadow:
+            0 0 10px #ff6600,
+            0 0 20px #ff3300,
+            0 0 30px #ff0000,
+            0 0 40px #ff3300,
+            0 0 60px #ff9900;
+        transform: scale(1) rotate(0.3deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+.modern-subtitle {
+    font-size: 1.5rem;
+    color: #cccccc;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    animation: fadeInUp 2s ease-in-out;
+}
+
+.btn-modern {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #0d0d0d;
+    background: linear-gradient(45deg, #a1ffce, #faffd1);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 255, 255, 0.3);
+}
+
+.btn-modern:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #faffd1, #a1ffce);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .modern-title {
+        font-size: 6rem; /* smaller for large tablets/laptops */
+        letter-spacing: 6px;
+    }
+
+    .welcome-text {
+        font-size: 4rem;
+    }
+
+    .modern-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+    }
+
+    .btn-modern {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .modern-title {
+        font-size: 4rem; 
+        letter-spacing: 4px;
+    }
+
+    .welcome-text {
+        font-size: 3rem;
+    }
+
+    .modern-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+
+    .btn-modern {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-title {
+        font-size: 2.8rem;
+        letter-spacing: 2px;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+    }
+
+    .modern-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+
+    .btn-modern {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+}
+/* Featured Products */
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    margin: 5rem 0 3rem;
+    color: #ff9900;
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+@media (max-width: 1200px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .product-grid { grid-template-columns: 1fr; } }
+
+/* About Section */
+.about-brand {
+    text-align: center;
+    padding: 6rem 2rem;
+    color: #fff;
+}
+.brand-text {
+    max-width: 800px;
+    margin: 2rem auto 0;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+}
+
+/* Reviews Section */
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+.review-card {
+    background: #121212;
+    border-radius: 16px;
+    padding: 2rem;
+    color: #fff;
+}
+@media (max-width: 768px) { .review-grid { grid-template-columns: 1fr; } }
+
+/* CTA Section */
+.cta {
+    padding: 6rem 2rem;
+    color: #fff;
+}
+.cta h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+.vape-people {
+    padding: 50px 20px;
+    background: #0d0d0d;
+    color: #fff;
+}
+
+.people-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.person {
+    flex: 0 0 250px;
+    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.person img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+    transition: transform 1s ease;
+}
+
+.person:hover img {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.person:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 153, 0, 0.4);
+}
+.vape-people {
+    padding: 50px 20px;
+    background: #0d0d0d;
+    color: #fff;
+}
+
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.person {
+    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    background: #111;
+    padding: 10px;
+}
+
+.person img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 1s ease;
+}
+
+.person:hover img {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.person:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 153, 0, 0.4);
+}
+
+.person p {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    color: #ccc;
+}
