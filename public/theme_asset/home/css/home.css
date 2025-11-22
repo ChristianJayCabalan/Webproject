@@ -680,8 +680,37 @@ nav.d-flex.align-items-center.gap-4 {
     grid-template-columns: repeat(2, 1fr); /* Previously 1fr, now 2 per row */
   }
 }
+.badge {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+}
+.profile-dot-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
-
+.profile-dot-wrapper .unread-dot {
+    position: absolute;
+    top: -17px;       /* adjust para mas mataas */
+    right: -10px;     /* adjust para nasa upper right */
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    border: 1px solid white; /* optional para mag-standout sa profile pic */
+}
+/* Mobile */
+@media (max-width: 768px) {
+    .profile-dot-wrapper .unread-dot {
+        top: -30px;       /* mas mababa sa mobile */
+        right: -20px;      /* adjust para mas proper sa mobile */
+        width: 8px;       /* mas maliit */
+        height: 8px;      /* mas maliit */
+    }
+}
 
 
 

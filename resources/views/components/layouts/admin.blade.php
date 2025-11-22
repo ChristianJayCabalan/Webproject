@@ -47,51 +47,8 @@
 
   <body>
     <div class="wrapper-parent">
-      <!-- Sidebar menu -->
-      <div id="menu" class="menu-wrap hide">
-        <!-- Logo -->
-        <div class="logo text-center py-3">
-          <h1>
-            <span class="line1"><span>C</span><span>L</span><span>O</span><span>U</span><span>D</span><span>S</span><span>C</span><span>A</span><span>P</span><span>E</span></span>
-            <span class="line2"><span>V</span><span>A</span><span>P</span><span>E</span><span>S</span><span>H</span><span>O</span><span>P</span></span>
-          </h1>
-        </div>
 
-        <!-- Admin Profile -->
-        <div class="admin-profile text-center py-4 border-bottom position-relative">
-            <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/default-avatar.png') }}"
-                 alt="Admin Profile" class="rounded-circle mb-2" width="80" height="80" style="object-fit: cover;">
-            <div class="dropdown position-absolute" style="top: 10px; right: 10px;">
-                <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
-                            <i class="fas fa-user-edit me-2"></i> Update Profile
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <h6 class="mb-0 mt-2" style="color: black;">{{ Auth::user()->name }}</h6>
-            <small class="text-muted">Administrator</small>
-        </div>
-
-        <ul class="insideScroll text-white mt-2">
-          <li class="hover"><a href="{{ route('admin.dashboard') }}"><i class="fas fa-house-damage"></i> Overview</a></li>
-          <li class="hover"><a href="{{ route('admin.categories') }}"><i class="fa-solid fa-list-ul"></i> Categories</a></li>
-          <li class="hover"><a href="{{ route('admin.chat') }}"><i class="fa-solid fa-message"></i> Message</a></li>
-          <li class="hover"><a href="{{ route('admin.add-product') }}"><i class="fa-solid fa-plus"></i> Product</a></li>
-          <li class="hover"><a href="{{ route('upcoming.stocks') }}"><i class="fa-solid fa-plus"></i> Add Up-comming Product</a></li>
-          <li class="hover"><a href="{{ route('admin.orders') }}"><i class="fa-solid fa-cart-shopping"></i> Order History</a></li>
-          <li class="hover">
-              <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-one"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
-              </form>
-          </li>
-        </ul>
-      </div>
+      <x-sidebar />
 
       <div class="responsive-overlay"></div>
 
@@ -104,7 +61,7 @@
           <div class="row">
             <!-- Menu Toggle Button inside white box with stroke -->
             <div class="col-2">
-              <div class="menu-toggle-box p-2 rounded" style="background-color: #ffffff; display: inline-block; border: 2px solid #ff7f28;">
+              <div class="menu-toggle-box p-2 rounded" style="background-color: #ffffff; display: inline-block; border: 2px solid #b1b0b0ff;">
                 <div id="hideshow" class="menu-toggle-btn">
                   <span class="w-75"></span><span class="w-50"></span><span></span>
                 </div>
@@ -117,9 +74,26 @@
             <!-- Empty space for alignment -->
             <div class="col-10 d-flex justify-content-end align-items-center">
               <div class="col-10 d-flex justify-content-end align-items-center">
-                    <div class="dropdown-center no-icon-dropdown">
-                      <a href="#"><i class='bx bxl-telegram'></i></a>
-                    </div>
+
+ @php
+    $unreadMessages = auth()->check()
+        ? \App\Models\Message::where('receiver_id', auth()->id())
+            ->where('is_read', false)
+            ->count()
+        : 0;
+@endphp
+
+<div wire:poll.5s="loadUnreadMessages" class="notif-icon position-relative" style="cursor:pointer;" wire:click="markAllAsRead">
+    <i class="fas fa-envelope fa-lg"></i>
+
+    @if($unreadMessages > 0)
+        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+    @endif
+</div>
+
+
+
+
                   </div>
             </div>
           </div>

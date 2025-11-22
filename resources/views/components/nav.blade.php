@@ -29,9 +29,8 @@
     @auth
     <a href="{{ route('cart') }}" class="nav-link-custom position-relative {{ request()->routeIs('cart') ? 'active' : '' }}">
         <i class="fa-solid fa-cart-shopping me-2"></i> Cart
-
         <!-- Cart Count Livewire -->
-        <livewire:cart-count-component />
+ <livewire:cart-count-component />
     </a>
 @endauth
 
@@ -45,7 +44,13 @@
     @else
     <div class="dropdown dropup">
     <a href="#" class="dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
-        <i class="fa-solid fa-user me-1"></i>
+        <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/default-avatar.png') }}"
+                 alt="Profile Picture"
+                 class="rounded-circle"
+                 style="width:40px; height:30px; object-fit:cover;" />
+
+            <!-- Red notification circle -->
+            <livewire:user-notifications wire:poll.5s />
         <span>Profile</span>
     </a>
     <ul class="dropdown-menu text-start">
@@ -59,6 +64,8 @@
             <a class="dropdown-item d-flex align-items-center" href="{{ route('user.chat') }}">
                 <i class="fa-solid fa-envelope me-1"></i>
                 <span>Message to Admin</span>
+                <livewire:user-notifications wire:poll.5s />
+                
             </a>
         </li>
         <li>

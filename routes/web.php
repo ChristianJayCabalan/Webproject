@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\AddUpcomingStock;
 use App\Livewire\Admin\CustomerList;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ChatController;
 use App\Livewire\UpcomingStockList;
 use App\Livewire\SearchResults;
@@ -166,8 +167,9 @@ Route::get('/cookie-policy', function () {
 })->name('cookie.policy');
 
 
-Route::get('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
 
 
 Route::get("auth/google", [GoogleController::class, "redirectToGoogle"])->name("redirect.google");

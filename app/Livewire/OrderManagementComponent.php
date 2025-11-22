@@ -15,42 +15,60 @@ class OrderManagementComponent extends Component
 
     public $search = ''; // 🔍 search text
 
+    /**
+     * Approve order
+     */
     public function approveOrder($orderId)
     {
         $order = Order::with(['user', 'product'])->find($orderId);
 
         if ($order) {
-            $order->update(['status' => 'approved']);
+            // ✅ Mark as approved and unread for user
+            $order->update([
+                'status' => 'approved',
+                'is_read' => false,
+            ]);
+
+            // Send notification email to user
             Mail::to($order->user->email)->send(new OrderApprovedMail($order));
+
             session()->flash('message', "Order #{$order->id} approved successfully, and the user has been notified.");
         } else {
             session()->flash('error', "Order #{$orderId} not found.");
         }
     }
 
+    /**
+     * Cancel order
+     */
     public function cancelOrder($orderId)
-{
-    $order = Order::with('user')->find($orderId);
+    {
+        $order = Order::with('user')->find($orderId);
 
-    if ($order->status === 'approved') {
-        session()->flash('error', "Order #{$order->id} is already approved and cannot be cancelled.");
-        return;
+        if ($order->status === 'approved') {
+            session()->flash('error', "Order #{$order->id} is already approved and cannot be cancelled.");
+            return;
+        }
+
+        $order->update(['status' => 'cancelled']);
+
+        // Notify user
+        Mail::to($order->user->email)->send(new OrderCancelledMail($order));
+
+        session()->flash('message', "Order #{$order->id} cancelled successfully, and the user has been notified.");
     }
 
-    $order->update(['status' => 'cancelled']);
-
-    // Notify user
-    Mail::to($order->user->email)->send(new OrderCancelledMail($order));
-
-    session()->flash('message', "Order #{$order->id} cancelled successfully, and the user has been notified.");
-}
-
-    // 🔍 Filter function (triggered by button)
+    /**
+     * Search/filter trigger
+     */
     public function applyFilter()
     {
-        // This forces re-render with current search value
+        // Forces re-render with current search value
     }
 
+    /**
+     * Render component
+     */
     public function render()
     {
         $orders = Order::with(['product', 'user'])
@@ -60,7 +78,7 @@ class OrderManagementComponent extends Component
                       ->orWhereHas('product', fn($q) => $q->where('title', 'like', '%' . $this->search . '%'));
             })
             ->latest()
-            ->paginate(10); // 🔹 paginate 10 orders per page
+            ->paginate(10);
 
         return view('livewire.order-management-component', [
             'orders' => $orders,

@@ -11,21 +11,27 @@ class ChatController extends Controller
 {
     // User view
     public function userChat()
-    {
-        $user = Auth::user();
-        $admin = User::where('role', 0)->first(); // kunin ang admin
+{
+    $user = Auth::user();
+    $admin = User::where('role', 0)->first();
 
-        // Kunin lahat ng messages sa pagitan ng user at admin
-        $messages = Message::where(function($q) use ($user, $admin){
-            $q->where('sender_id', $user->id)
-              ->where('receiver_id', $admin->id);
-        })->orWhere(function($q) use ($user, $admin){
-            $q->where('sender_id', $admin->id)
-              ->where('receiver_id', $user->id);
-        })->orderBy('created_at','asc')->get();
+    // Mark unread admin messages as read
+    Message::where('receiver_id', $user->id)
+        ->where('sender_id', $admin->id)
+        ->where('is_read', false)
+        ->update(['is_read' => true]);
 
-        return view('user-chat', compact('user', 'admin', 'messages'));
-    }
+    $messages = Message::where(function($q) use ($user, $admin){
+        $q->where('sender_id', $user->id)
+          ->where('receiver_id', $admin->id);
+    })->orWhere(function($q) use ($user, $admin){
+        $q->where('sender_id', $admin->id)
+          ->where('receiver_id', $user->id);
+    })->orderBy('created_at','asc')->get();
+
+    return view('user-chat', compact('user', 'admin', 'messages'));
+}
+
 
     // Admin view
     public function adminChat()
@@ -57,7 +63,13 @@ public function getUserMessages(User $user)
 {
     $admin = Auth::user();
 
-    $messages = Message::with('sender') // include sender info
+    // Mark unread messages as read
+    Message::where('sender_id', $user->id)
+        ->where('receiver_id', $admin->id)
+        ->where('is_read', false)
+        ->update(['is_read' => true]);
+
+    $messages = Message::with('sender')
         ->where(function($q) use ($user, $admin){
             $q->where('sender_id', $user->id)
               ->where('receiver_id', $admin->id);
@@ -70,6 +82,7 @@ public function getUserMessages(User $user)
 
     return response()->json($messages);
 }
+
 
 
 }

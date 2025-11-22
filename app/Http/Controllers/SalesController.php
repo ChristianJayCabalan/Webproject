@@ -48,7 +48,7 @@ class SalesController extends Controller
 {
     $orders = Order::with(['user', 'product'])
         ->whereYear('created_at', now()->year)
-        ->where('status', 'approved') // only approved sales
+        ->where('status', 'approved') 
         ->get();
 
     $totalSales = $orders->sum('total_price');

@@ -6,9 +6,11 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\UpcomingStock;
+use App\Models\Message;
 use Livewire\Component;
 use Carbon\Carbon;
-use App\Models\UpcomingStock;
+use Illuminate\Support\Facades\Auth;
 
 class AdminOverview extends Component
 {
@@ -18,6 +20,7 @@ class AdminOverview extends Component
     public $totalCustomers;
     public $totalUpcomingStock;
     public $pendingOrders;
+    public $unreadMessages = 0;
 
     // Weekly
     public $weeklyRangeText;
@@ -37,6 +40,8 @@ class AdminOverview extends Component
         $this->loadOverviewData();
     }
 
+    protected $pollingInterval = 5000;
+
     public function loadOverviewData()
     {
         // Totals
@@ -46,6 +51,11 @@ class AdminOverview extends Component
         $this->totalCustomers    = User::count();
         $this->totalUpcomingStock = UpcomingStock::count();
         $this->pendingOrders     = Order::where('status', 'pending')->count();
+
+        // Unread messages for admin
+        $this->unreadMessages = Message::where('receiver_id', Auth::id())
+            ->where('is_read', false)
+            ->count();
 
         // -----------------------
         // WEEKLY SALES (Mon–Sun)
@@ -113,6 +123,22 @@ class AdminOverview extends Component
 
             $this->totalYearlySales += $salesForYear;
         }
+    }
+
+    public function loadUnreadMessages()
+    {
+        $this->unreadMessages = Message::where('receiver_id', Auth::id())
+            ->where('is_read', false)
+            ->count();
+    }
+
+    public function markAllAsRead()
+    {
+        Message::where('receiver_id', Auth::id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        $this->unreadMessages = 0;
     }
 
     public function render()
