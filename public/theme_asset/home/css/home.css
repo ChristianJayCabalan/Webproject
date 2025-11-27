@@ -436,6 +436,22 @@ body {
   cursor: pointer;
   border: none;
 }
+@media (max-width: 768px) {
+    .pcc_btns {
+        display: flex;
+        flex-direction: row; /* pareho sa desktop side-by-side */
+        gap: 10px;
+    }
+
+    .pcc_btns .btn,
+    .pcc_btns .viewbtn {
+        flex: 2; /* parehong lapad */
+        font-size: 1rem; /* mas maliit sa mobile pero pantay */
+        padding: 10px 0; /* pantay ang taas */
+        text-align: center;
+    }
+}
+
 
 .pcc_btns .addtocart {
   background-color: #e67e22;

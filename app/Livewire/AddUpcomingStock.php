@@ -38,6 +38,13 @@ class AddUpcomingStock extends Component
     {
         $this->resetPage();
     }
+    // Clear search and restore full table
+public function clearSearch()
+{
+    $this->search = '';
+    $this->resetPage();
+}
+
 
     public function updatingSearch()
     {
@@ -128,20 +135,24 @@ class AddUpcomingStock extends Component
     }
 
     public function render()
-    {
-        $stocks = UpcomingStock::with('category')
-            ->when($this->search, function ($query) {
-                $query->where('product_name', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('category', function ($q) {
-                          $q->where('name', 'like', '%' . $this->search . '%');
-                      });
-            })
-            ->latest()
-            ->paginate(10);
+{
+    $stocks = UpcomingStock::with('category')
+        ->when($this->search, function ($query) {
+            $searchTerm = '%' . $this->search . '%';
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('product_name', 'like', $searchTerm)
+                  ->orWhereHas('category', fn($q2) => $q2->where('name', 'like', $searchTerm))
+                  ->orWhere('incoming_quantity', 'like', $searchTerm)
+                  ->orWhere('expected_arrival', 'like', $searchTerm);
+            });
+        })
+        ->latest()
+        ->paginate(10);
 
-        return view('livewire.add-upcoming-stock', [
-            'categories' => Category::all(),
-            'stocks' => $stocks,
-        ])->layout('components.layouts.admin');
-    }
+    return view('livewire.add-upcoming-stock', [
+        'categories' => Category::all(),
+        'stocks' => $stocks,
+    ])->layout('components.layouts.admin');
+}
+
 }

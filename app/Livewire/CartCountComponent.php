@@ -3,12 +3,16 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartCountComponent extends Component
 {
-    protected $listeners = ['cartUpdated' => 'updateCartCount'];
+    public $cartCount = 0;
 
-    public $count = 0;
+    protected $listeners = [
+        'cartUpdated' => 'updateCartCount'
+    ];
 
     public function mount()
     {
@@ -17,12 +21,20 @@ class CartCountComponent extends Component
 
     public function updateCartCount()
     {
-        $cart = session('cart', []);
-        $this->count = array_sum(array_column($cart, 'quantity'));
+        if (Auth::check()) {
+            // Count distinct products for logged-in user
+            $this->cartCount = Cart::where('user_id', Auth::id())->count();
+        } else {
+            // Count distinct products in session cart
+            $cart = session()->get('cart', []);
+            $this->cartCount = count($cart);
+        }
     }
 
     public function render()
     {
-        return view('livewire.cart-count-component');
+        return view('livewire.cart-count-component', [
+            'cartCount' => $this->cartCount
+        ]);
     }
 }

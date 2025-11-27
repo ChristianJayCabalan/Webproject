@@ -37,6 +37,12 @@ class OrderManagementComponent extends Component
             session()->flash('error', "Order #{$orderId} not found.");
         }
     }
+    public function clearFilter()
+{
+    $this->search = null; // clear search input
+    $this->resetPage();   // reset pagination
+           // reload original orders
+}
 
     /**
      * Cancel order

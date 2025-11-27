@@ -1,5 +1,5 @@
-<div>
-    {{-- ✅ SweetAlert messages --}}
+<div class="container-fluid mt-4 d-flex flex-column min-vh-100">
+    {{-- SweetAlert messages --}}
     @if (session()->has('message'))
         <script>
             Swal.fire({
@@ -24,111 +24,111 @@
         </script>
     @endif
 
-    <form wire:submit.prevent="confirmOrder">
-        <div class="product_card">
+    <form wire:submit.prevent="confirmOrder" class="d-flex flex-column">
+    <div class="product_card w-100 d-flex flex-column">
 
-            {{-- Cart Table --}}
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped text-center">
-                    <thead class="thead-dark">
+        {{-- Cart Table --}}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center w-100">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    @forelse ($cart as $productId => $item)
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Action</th>
+                            <td>{{ $item['title'] }}</td>
+                            <td>₱{{ number_format($item['price'], 2) }}</td>
+                            <td>
+                                <input type="number"
+                                       wire:model.lazy="cart.{{ $productId }}.quantity"
+                                       wire:change="updateQuantity({{ $productId }}, $event.target.value)"
+                                       min="1"
+                                       class="form-control form-control-sm"
+                                       style="width:80px;">
+                            </td>
+                            <td>₱{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-warning btn-sm"
+                                        wire:click="removeFromCart({{ $productId }})">
+                                    Remove
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($cart as $productId => $item)
-                            <tr>
-                                <td>{{ $item['title'] }}</td>
-                                <td>₱{{ number_format($item['price'], 2) }}</td>
-                                <td>
-                                    <input type="number"
-                                           wire:model.lazy="cart.{{ $productId }}.quantity"
-                                           wire:change="updateQuantity({{ $productId }}, $event.target.value)"
-                                           min="1"
-                                           class="form-control form-control-sm"
-                                           style="width:80px;">
-                                </td>
-                                <td>₱{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
-                                <td>
-                                    <button type="button"
-                                            class="btn btn-warning btn-sm"
-                                            wire:click="removeFromCart({{ $productId }})">
-                                        Remove
-                                    </button>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center text-muted fw-bold">
-                                    🛒 Your cart is empty!
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                    <tfoot>
+                    @empty
                         <tr>
-                            <th>Total</th>
-                            <td colspan="3"></td>
-                            <td>₱{{ number_format($total ?? 0, 2) }}</td>
+                            <td colspan="5" class="text-center text-muted fw-bold py-4">
+                                🛒 Your cart is empty!
+                            </td>
                         </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    @endforelse
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <td colspan="3"></td>
+                        <td>₱{{ number_format($total ?? 0, 2) }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
-            {{-- Address Section Horizontal --}}
-            <div class="row mt-3 g-3">
-                <div class="col-md-3">
-                    <label>Province:</label>
-                    <input type="text" class="form-control" value="Bohol" readonly>
-                </div>
-                <div class="col-md-3">
-                    <label>Municipality:</label>
-                    <input type="text" class="form-control" value="Talibon" readonly>
-                </div>
-                <div class="col-md-3">
-                    <label>Barangay:</label>
-                    <select wire:model="barangay" class="form-control">
-                        <option value="">-- Select Barangay --</option>
-                        @foreach($barangays as $b)
-                            <option value="{{ $b }}">{{ $b }}</option>
-                        @endforeach
-                    </select>
-                    @error('barangay') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-                <div class="col-md-3">
-                    <label>Purok:</label>
-                    <select wire:model="purok" class="form-control">
-                        <option value="">-- Select Purok --</option>
-                        @foreach($puroks as $p)
-                            <option value="{{ $p }}">{{ $p }}</option>
-                        @endforeach
-                    </select>
-                    @error('purok') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-            </div>
 
-            {{-- Phone Number --}}
-            <div class="mt-3">
-                <label>Phone Number:</label>
-                <input type="text"
-                       wire:model="phoneNumber"
-                       class="form-control"
-                       placeholder="Enter your phone number">
-                @error('phoneNumber')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+            {{-- Address Section --}}
+<div class="row mt-1 g-4">
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Province:</label>
+        <input type="text" class="form-control form-control-lg" value="Bohol" readonly>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Municipality:</label>
+        <input type="text" class="form-control form-control-lg" value="Talibon" readonly>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Barangay:</label>
+        <select wire:model="barangay" class="form-control form-control-lg">
+            <option value="">-- Select Barangay --</option>
+            @foreach($barangays as $b)
+                <option value="{{ $b }}">{{ $b }}</option>
+            @endforeach
+        </select>
+        @error('barangay') <span class="text-danger fw-bold">{{ $message }}</span> @enderror
+    </div>
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Purok:</label>
+        <select wire:model="purok" class="form-control form-control-lg">
+            <option value="">-- Select Purok --</option>
+            @foreach($puroks as $p)
+                <option value="{{ $p }}">{{ $p }}</option>
+            @endforeach
+        </select>
+        @error('purok') <span class="text-danger fw-bold">{{ $message }}</span> @enderror
+    </div>
+</div>
 
-            {{-- Confirm Button --}}
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary w-100" @if(empty($cart)) disabled @endif>
-                    Confirm Order
-                </button>
-            </div>
+{{-- Phone Number --}}
+<div class="mt-4">
+    <label class="form-label fw-bold">Phone Number:</label>
+    <input type="text"
+           wire:model="phoneNumber"
+           class="form-control form-control-lg"
+           placeholder="Enter your phone number">
+    @error('phoneNumber') <span class="text-danger fw-bold">{{ $message }}</span> @enderror
+</div>
+
+{{-- Confirm Button --}}
+<div class="mt-5">
+    <button type="submit" class="btn btn-primary btn-lg w-100" @if(empty($cart)) disabled @endif>
+        Confirm Order
+    </button>
+</div>
+
 
         </div>
     </form>

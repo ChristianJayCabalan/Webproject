@@ -40,6 +40,13 @@ class AddProductComponent extends Component
     {
         $this->resetPage();
     }
+    // Clear search and restore full table
+public function clearSearch()
+{
+    $this->search = '';
+    $this->resetPage();
+}
+
 
     public function applyFilter()
     {
@@ -131,18 +138,24 @@ class AddProductComponent extends Component
     }
 
     public function render()
-    {
-        $products = Product::with('category')
-            ->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('category', fn($q) => $q->where('name', 'like', '%' . $this->search . '%'));
-            })
-            ->latest()
-            ->paginate(10);
+{
+    $products = Product::with('category')
+        ->when($this->search, function ($query) {
+            $searchTerm = '%' . $this->search . '%';
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', $searchTerm)
+                  ->orWhereHas('category', fn($q2) => $q2->where('name', 'like', $searchTerm))
+                  ->orWhere('price', 'like', $searchTerm)
+                  ->orWhere('stock', 'like', $searchTerm);
+            });
+        })
+        ->latest()
+        ->paginate(10);
 
-        return view('livewire.add-product-component', [
-            'categories' => Category::all(),
-            'products' => $products,
-        ])->layout('components.layouts.admin');
-    }
+    return view('livewire.add-product-component', [
+        'categories' => Category::all(),
+        'products' => $products,
+    ])->layout('components.layouts.admin');
+}
+
 }

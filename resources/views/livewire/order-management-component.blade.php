@@ -1,18 +1,33 @@
 <div class="container-fluid mt-4">
+
+<h2>Orders</h2>
+
+    
     {{-- Table List --}}
     <div class="card shadow rounded-lg mt-4">
         <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #ff7f28; color: white;">
             <span>All Orders</span>
 
+            
+
             {{-- 🔍 Search by Date + Filter Button --}}
             <div class="input-group input-group-sm w-auto">
-                <input type="date" 
-                       wire:model.defer="search" 
-                       class="form-control">
-                <button class="btn btn-success" wire:click="applyFilter">
-                    <i class="fas fa-search"></i> Filter
-                </button>
-            </div>
+    <input type="date" 
+           wire:model.defer="search" 
+           class="form-control">
+
+    @if ($search)
+        <!-- Back button visible only when search is not empty -->
+        <button type="button" class="btn btn-warning ms-1" wire:click="clearFilter">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    @endif
+
+    <button class="btn btn-success ms-1" wire:click="applyFilter">
+        <i class="fas fa-search"></i> Filter
+    </button>
+</div>
+
         </div>
 
         {{-- Success / Error Messages --}}

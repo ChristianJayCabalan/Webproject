@@ -128,7 +128,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])->group(function 
 
 
 
-Route::middleware(['auth', 'verified','rolemanager:admin'])->group(function () {
+Route::middleware(['auth','rolemanager:admin'])->group(function () {
 
     Route::get('/admin/dashboard', AdminOverview::class)->name('admin.dashboard');
 
@@ -165,11 +165,6 @@ Route::get('/privacy-policy', function () {
 Route::get('/cookie-policy', function () {
     return view('cookie_policy');
 })->name('cookie.policy');
-
-
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-
 
 
 Route::get("auth/google", [GoogleController::class, "redirectToGoogle"])->name("redirect.google");

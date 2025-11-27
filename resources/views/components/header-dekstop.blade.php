@@ -48,9 +48,9 @@
                     @auth
                         <a href="{{ route('cart') }}" class="nav-link-custom position-relative {{ request()->routeIs('cart') ? 'active' : '' }}">
                             <i class="fa-solid fa-cart-shopping me-2"></i> Cart
-                            <!-- Cart Count Livewire -->
                             <livewire:cart-count-component />
                         </a>
+                        
                     @endauth
 
                     <!-- Up-Coming Product -->

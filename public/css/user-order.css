@@ -57,3 +57,103 @@
 .header-animate::after {
     right: 8px;
 }
+/* Card styles */
+
+/* sa user-order.css */
+.card {
+    width: 100%;           /* full width */
+    min-height: 150px;     /* adjust height ayon sa gusto */
+    border-radius: 12px;
+    background-color: #fff;
+}
+
+.order-card {
+    border-radius: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Status badge wrapper */
+.status-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* Modern status badges */
+.status-badge {
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+    font-size: 1.50rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Status-specific colors */
+.status-badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.status-badge.approved {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-badge.cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Hover effect for badges */
+.status-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Status messages */
+.status-message p {
+    margin: 0;
+    font-size: 1.9rem;
+    padding-left: 5px;
+}
+
+/* Order details */
+.order-details p, .order-details small {
+    font-size: 1.50rem;
+}
+
+/* Header animation (from your previous CSS) */
+.header-animate {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 1.5px;
+    display: inline-block;
+    margin: 1.5rem auto 2rem auto;
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(139,69,19,0.9), rgba(160,82,45,0.8));
+    border: 2px solid #5a2d0c;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    animation: floatHeader 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatHeader {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-2px); }
+}

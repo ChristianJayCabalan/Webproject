@@ -1,0 +1,53 @@
+ /* Header gradient */
+        .upcoming-header {
+            background: linear-gradient(135deg, rgba(139,69,19,0.9), rgba(160,82,45,0.8));
+            color: #fff;
+            border: 3px solid #5a2d0c;
+        }
+        .nail-left, .nail-right {
+            position: absolute;
+            top: 10px;
+            width: 15px;
+            height: 15px;
+            background: #555;
+            border-radius: 50%;
+            box-shadow: inset 2px 2px 4px #000;
+        }
+        .nail-left { left: 10px; }
+        .nail-right { right: 10px; }
+
+        /* Card customizations */
+        .card-stock {
+            background: rgba(255,255,255,0.8);
+        }
+        .card-title-stock {
+            color: #8bf581ff;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        /* Responsive Columns */
+        .col-stock {
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+
+        @media (max-width: 1024px) { /* tablet / iPad */
+            .col-stock {
+                flex: 0 0 33.3333%;
+                max-width: 33.3333%;
+            }
+        }
+
+        @media (max-width: 768px) { /* mobile */
+            .col-stock {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 480px) { /* extra small */
+            .col-stock {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }

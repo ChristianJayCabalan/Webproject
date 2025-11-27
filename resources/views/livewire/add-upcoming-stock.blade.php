@@ -65,11 +65,20 @@
         <div class="card-header card-header-stock d-flex justify-content-between align-items-center">
             <span>Upcoming Products</span>
             <div class="input-group input-group-sm w-auto">
-                <input type="text" wire:model.debounce.500ms="search" class="form-control" placeholder="Search...">
-                <button class="btn btn-success" wire:click="applyFilter">
-                    <i class="fas fa-search"></i> Filter
-                </button>
-            </div>
+    <input type="text" wire:model.debounce.500ms="search" class="form-control" placeholder="Search products...">
+
+    @if ($search)
+        <!-- Back button visible only when search is not empty -->
+        <button type="button" class="btn btn-warning ms-1" wire:click="clearSearch">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    @endif
+
+    <button class="btn btn-success ms-1" wire:click="applyFilter">
+        <i class="fas fa-search"></i> Filter
+    </button>
+</div>
+
         </div>
 
         <div class="card-body">

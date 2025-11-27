@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Product;
 use App\Models\Review;
 use Livewire\Component;
+use App\Models\Cart;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,35 +24,47 @@ class SingleProductComponent extends Component
     }
 
     public function addToCart($productId)
-    {
-        $product = Product::find($productId);
+{
+    $product = Product::findOrFail($productId);
 
-        if (!$product) {
-            $this->dispatch('swal', [
-                'title' => 'Product not found.',
-                'icon' => 'error',
-                'draggable' => true
+    // If user is logged in - use database cart
+    if (Auth::check()) {
+        $cartItem = Cart::where('user_id', Auth::id())
+                        ->where('product_id', $productId)
+                        ->first();
+
+        if ($cartItem) {
+            // ADD TO QUANTITY (NOT ADD TO COUNT)
+            $cartItem->quantity += 1;
+            $cartItem->save();
+        } else {
+            // CREATE NEW CART ITEM ONLY IF NOT EXIST
+            Cart::create([
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
+                'quantity' => 1,
             ]);
-            return;
         }
 
+    } else { 
+        // GUEST USER – SESSION CART
         $cart = session()->get('cart', []);
+
         if (isset($cart[$productId])) {
-            $cart[$productId]['quantity']++;
+            $cart[$productId]['quantity'] += 1;
         } else {
             $cart[$productId] = [
                 'title' => $product->title,
                 'price' => $product->price,
-                'quantity' => 1,
+                'quantity' => 1
             ];
         }
-        session()->put('cart', $cart);
 
-        $this->dispatch('swal', [
-            'title' => "{$product->title} added to cart!",
-            'icon' => 'success',
-            'draggable' => true
-        ]);
+        session()->put('cart', $cart);
+    }
+
+        $this->dispatch('cartUpdated');
+        $this->dispatch('swal', ['title'=>'Added to Cart!','text'=>"{$product->title} has been added to your cart.",'icon'=>'success']);
     }
 
     public function addReview()
