@@ -32,8 +32,8 @@
 /* --- GRID LAYOUT --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
     margin: 30px 0;
 }
 
@@ -113,30 +113,130 @@
 }
 
 /* --- RESPONSIVE --- */
-/* Laptop - 4 columns */
-@media (max-width: 1200px) {
+/* Desktop - 5 columns (1400px and above) */
+@media (min-width: 1400px) {
+    .product-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Large screens - 4 columns (1200px to 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
     .product-grid {
         grid-template-columns: repeat(4, 1fr);
+        gap: 1.3rem;
     }
 }
 
-/* iPad / Tablet - 3 columns */
-@media (max-width: 992px) {
+/* Tablet - 3 columns (769px to 1199px) */
+@media (min-width: 769px) and (max-width: 1199px) {
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+    
+    .product_img {
+        height: 200px;
+    }
+    
+    .pc_content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .pcc_in {
+        font-size: 1.2rem;
+    }
+    
+    .pcc_price {
+        font-size: 1.2rem;
     }
 }
 
-/* Mobile Landscape - 2 columns */
+/* Mobile - 2 columns (max 768px) */
 @media (max-width: 768px) {
     .product-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin: 20px 0;
+    }
+    
+    .product_card {
+        padding-bottom: 10px;
+    }
+    
+    .product_img {
+        height: 180px;
+    }
+    
+    .pc_content {
+        padding: 15px;
+    }
+    
+    .pc_content h2 {
+        font-size: 1.3rem;
+    }
+    
+    .pcc_in {
+        font-size: 1rem;
+    }
+    
+    .pcc_price {
+        font-size: 1.1rem;
+    }
+    
+    .pcc_stock {
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
 }
 
-/* Small Mobile - 1 column */
+/* Small Mobile - 2 columns (max 480px) */
 @media (max-width: 480px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        margin: 15px 0;
+    }
+    
+    .product_card {
+        border-radius: 10px;
+        padding-bottom: 8px;
+    }
+    
+    .product_img {
+        height: 150px;
+    }
+    
+    .pc_content {
+        padding: 10px;
+    }
+    
+    .pc_content h2 {
+        font-size: 1.1rem;
+        margin-bottom: 3px;
+    }
+    
+    .pcc_in {
+        font-size: 0.9rem;
+    }
+    
+    .pcc_price {
+        font-size: 1rem;
+        margin-top: 3px;
+    }
+    
+    .pcc_stock {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+    
+    .btn {
+        padding: 5px 10px;
+        font-size: 0.8rem;
     }
 }

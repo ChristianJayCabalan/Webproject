@@ -131,15 +131,20 @@ class AdminOverview extends Component
             ->where('is_read', false)
             ->count();
     }
-
     public function markAllAsRead()
-    {
-        Message::where('receiver_id', Auth::id())
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
+{
+    Message::where('receiver_id', Auth::id())
+        ->where('is_read', false)
+        ->update(['is_read' => true]);
 
-        $this->unreadMessages = 0;
-    }
+    $this->unreadMessages = 0;
+}
+
+public function goToMessages()
+{
+    return redirect()->route('admin.chat');
+}
+
 
     public function render()
     {

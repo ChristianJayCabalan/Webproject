@@ -32,6 +32,7 @@
             <table class="table table-bordered table-striped text-center w-100">
                 <thead class="thead-dark">
                     <tr>
+                        <th>Image</th>
                         <th>Product</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -42,25 +43,36 @@
                 <tbody class="align-middle">
                     @forelse ($cart as $productId => $item)
                         <tr>
-                            <td>{{ $item['title'] }}</td>
-                            <td>₱{{ number_format($item['price'], 2) }}</td>
-                            <td>
-                                <input type="number"
-                                       wire:model.lazy="cart.{{ $productId }}.quantity"
-                                       wire:change="updateQuantity({{ $productId }}, $event.target.value)"
-                                       min="1"
-                                       class="form-control form-control-sm"
-                                       style="width:80px;">
-                            </td>
-                            <td>₱{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
-                            <td>
-                                <button type="button"
-                                        class="btn btn-warning btn-sm"
-                                        wire:click="removeFromCart({{ $productId }})">
-                                    Remove
-                                </button>
-                            </td>
-                        </tr>
+    <td style="text-align:center;">
+    <a href="{{ route('product.show', $item['id']) }}">
+        <div style="width:60px; height:60px; border:1px solid #ccc; border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin:auto;">
+            <img src="{{ asset('storage/' . $item['image']) }}" 
+                 alt="{{ $item['title'] }}" 
+                 style="max-width:100%; max-height:100%; object-fit:contain;">
+        </div>
+    </a>
+</td>
+
+    <td>{{ $item['title'] }}</td>
+    <td>₱{{ number_format($item['price'], 2) }}</td>
+    <td>
+        <input type="number"
+               wire:model.lazy="cart.{{ $productId }}.quantity"
+               wire:change="updateQuantity({{ $productId }}, $event.target.value)"
+               min="1"
+               class="form-control form-control-sm"
+               style="width:80px;">
+    </td>
+    <td>₱{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+    <td>
+        <button type="button"
+                class="btn btn-warning btn-sm"
+                wire:click="removeFromCart({{ $productId }})">
+            Remove
+        </button>
+    </td>
+</tr>
+
                     @empty
                         <tr>
                             <td colspan="5" class="text-center text-muted fw-bold py-4">

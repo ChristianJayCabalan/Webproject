@@ -82,14 +82,19 @@
             ->count()
         : 0;
 @endphp
+<a href="{{ route('admin.chat') }}" style="text-decoration: none; color: inherit;">
+    <div wire:poll.5s="loadUnreadMessages" 
+         class="notif-icon position-relative" 
+         style="cursor:pointer;">
+         
+        <i class="fas fa-envelope fa-lg"></i>
 
-<div wire:poll.5s="loadUnreadMessages" class="notif-icon position-relative" style="cursor:pointer;" wire:click="markAllAsRead">
-    <i class="fas fa-envelope fa-lg"></i>
+        @if($unreadMessages > 0)
+            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+        @endif
+    </div>
+</a>
 
-    @if($unreadMessages > 0)
-        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-    @endif
-</div>
 
 
 

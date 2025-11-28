@@ -75,7 +75,9 @@ class CartComponent extends Component
                 return [$item->product_id => [
                     'title' => $item->product->title,
                     'price' => $item->product->price,
-                    'quantity' => $item->quantity
+                    'quantity' => $item->quantity,
+                    'image' => $item->product->image,
+                    'id' => $item->product->id,
                 ]];
             })->toArray();
         } else {
